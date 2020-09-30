@@ -5,21 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SetList.Data
+namespace SetList.Models
 {
-    public class Band
+    public class BandListItem
     {
-        [Key]
         public int BandId { get; set; }
-        [Required]
-        public Guid UserId { get; set; }
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string Members { get; set; }
-        [Display(Name = "Years Active")]
-        public string YearsActive { get; set; }
+        [Display(Name="Years Active")]
+        public string  YearsActive { get; set; }
+        [Display(Name="Number Of Albums")]
         public int NumberOfAlbums { get; set; }
     }
 }
-        
