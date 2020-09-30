@@ -59,5 +59,42 @@ namespace SetList.Services
                 return query.ToArray();
             }
         }
+
+        public BandDetail GetBandById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                    .Bands.Single(e => e.BandId == id && e.UserId == _userId);
+                return
+                    new BandDetail
+                    {
+                        BandId = entity.BandId,
+                        Name = entity.Name,
+                        Members = entity.Members,
+                        YearsActive = entity.YearsActive,
+                        NumberOfAlbums = entity.NumberOfAlbums
+                    };
+            }
+
+        }
+        public bool UpdateBand(BandEdit model)
+        {
+            using(var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                    .Bands
+                    .Single(e => e.BandId == model.BandId && e.UserId == _userId);
+
+                entity.Name = model.Name;
+                entity.Members = model.Members;
+                entity.YearsActive = model.YearsActive;
+                entity.NumberOfAlbums = model.NumberOfAlbums;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }
