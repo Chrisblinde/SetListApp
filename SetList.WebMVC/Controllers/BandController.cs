@@ -91,6 +91,27 @@ namespace SetList.WebMVC.Controllers
             ModelState.AddModelError("", "Could Not Update Band!");
             return View(model);
         }
+        
+        [ActionName("Delete")]
+        public ActionResult Delete(int id)
+        {
+            var svc = CreateBandService();
+            var model = svc.GetBandById(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePost(int id)
+        {
+            var service = CreateBandService();
+            service.DeleteBand(id);
+            TempData["SaveResult"] = "Band Deleted!";
+
+            return RedirectToAction("Index");
+        }
 
 
 
@@ -102,3 +123,4 @@ namespace SetList.WebMVC.Controllers
         }
     }
 }
+

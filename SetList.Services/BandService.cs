@@ -96,5 +96,20 @@ namespace SetList.Services
                 return ctx.SaveChanges() == 1;
             }
         }
+
+        public bool DeleteBand(int bandId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Bands
+                        .Single(e => e.BandId == bandId && e.UserId == _userId);
+
+                ctx.Bands.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }
