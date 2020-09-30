@@ -1,4 +1,6 @@
-﻿using SetList.Models;
+﻿using Microsoft.AspNet.Identity;
+using SetList.Models;
+using SetList.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,10 @@ namespace SetList.WebMVC.Controllers
         // GET: Band
         public ActionResult Index()
         {
-            var model = new BandListItem[0];
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new BandService(userId);
+            var model = service.GetBands();
+
             return View(model);
         }
 
@@ -26,11 +31,25 @@ namespace SetList.WebMVC.Controllers
     [ValidateAntiForgeryToken]
     public ActionResult Create(BandCreate model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-
+                return View(model);
             }
-            return View(model);
+
+            BandService service = CreateBandService();
+
+            service.CreateBand(model);
+
+            return RedirectToAction("Index");
+
+
+        }
+
+        private BandService CreateBandService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new BandService(userId);
+            return service;
         }
     }
 }

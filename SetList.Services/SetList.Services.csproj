@@ -56,11 +56,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BandService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SetList.Data\SetList.Data.csproj">
+      <Project>{d291320e-ede3-4614-999d-a32b848ef2d2}</Project>
+      <Name>SetList.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SetList.Models\SetList.Models.csproj">
+      <Project>{024a2386-e8a4-47f4-9859-9eba6eb6e63a}</Project>
+      <Name>SetList.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
